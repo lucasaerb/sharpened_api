@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "app/api.py",
+        "src": "/app/api.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.8" }
       }
@@ -12,5 +12,8 @@
           "src": "/(.*)",
           "dest": "/app/api.py"
         }
-      ]
+      ],
+    "env": {
+      "APP_MODULE": "app:api"
+    }
   }
