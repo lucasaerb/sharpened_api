@@ -3,14 +3,12 @@
     "builds": [
       {
         "src": "/app/api.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.8" }
-      }
+        "use": "@vercel/python"      }
     ],
     "routes": [
         {
           "src": "/(.*)",
-          "dest": "/app/api.py"
+          "dest": "app/api.py"
         }
       ],
     "env": {
