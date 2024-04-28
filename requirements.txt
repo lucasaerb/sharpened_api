@@ -1,0 +1,7 @@
+uvicorn
+fastapi
+langchain
+langchain-openai
+pydantic
+requests
+trafilatura
