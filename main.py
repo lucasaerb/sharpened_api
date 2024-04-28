@@ -4,6 +4,7 @@ import uvicorn
 
 load_dotenv()
 
+
 PORT = int(os.getenv("PORT", 3000))
 HOST = 'localhost'
 
