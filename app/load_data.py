@@ -74,6 +74,7 @@ def add_docs_to_db(docs, user_id):
             print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
         except Exception as e:
             print("Error exception:",e)
+            continue
 
     return total
 
