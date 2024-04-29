@@ -10,7 +10,10 @@
     "routes": [
         {
           "src": "/(.*)",
-          "dest": "app/api.py"
+          "dest": "app/api.py",
+          "headers": {
+            "Access-Control-Allow-Origin": "*"
+          }
         }
       ],
     "env": {
