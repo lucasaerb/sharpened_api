@@ -1,0 +1,19 @@
+{
+  "name": "sharpened_api",
+  "version": "1.0.0",
+  "description": "Sharpened Backend Fast API",
+  "main": "/app/api.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasaerb/sharpened_api.git"
+  },
+  "author": "Lucas Erb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasaerb/sharpened_api/issues"
+  },
+  "homepage": "https://github.com/lucasaerb/sharpened_api#readme"
+}
