@@ -117,7 +117,7 @@ def get_urls_from_pocket(access_token, user_id):
                 saves = future.result()
                 print("SAVES type: ", type(saves), "saves[list] type:", type(saves['list']))
                 if saves is not None and len(saves['list']) > 0:
-                    url_list = [item['given_url'] for item in saves['list'].values()]
+                    url_list = [item['resolved_url'] for item in saves['list'].values()]
                     result.extend(url_list)
             except Exception as e:
                 print("Error getting urls from pocket at offset {}: {}".format(offset, e))

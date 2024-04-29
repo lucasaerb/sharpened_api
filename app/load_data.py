@@ -84,17 +84,18 @@ def add_urls_to_db(urls, user_id):
     documents = []
     print("adding urls to datastax astra: ", urls)
     for url in urls:
-        document_id = url
-        document_title = "None"
-        document_content = "None"
-        embedding = []
-        current_time = datetime.datetime.now().isoformat()
-        json_data = {"timestamp": current_time}
-        to_insert = {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding }
-        documents.append(to_insert)
-        # to_insert = {"insertOne": {"document": {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding}}}
-        # response = requests.request("POST", request_url, headers=request_headers, data=dumps(to_insert))
-        total += 1
+        if url:
+            document_id = url
+            document_title = "None"
+            document_content = "None"
+            embedding = []
+            current_time = datetime.datetime.now().isoformat()
+            json_data = {"timestamp": current_time}
+            to_insert = {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding }
+            documents.append(to_insert)
+            # to_insert = {"insertOne": {"document": {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding}}}
+            # response = requests.request("POST", request_url, headers=request_headers, data=dumps(to_insert))
+            total += 1
     try:
         step = 10
         for i in range(0, len(documents), step):
