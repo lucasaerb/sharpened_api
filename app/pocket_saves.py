@@ -3,11 +3,11 @@ import json
 from time import sleep
 import requests
 from langchain_openai import OpenAIEmbeddings
-from load_data import *
-from better_scraper import *
+from app.load_data import *
+from app.better_scraper import *
 import sys
 sys.path.append("utils")
-from local_creds import *
+from app.local_creds import *
 #To do: add logger
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 

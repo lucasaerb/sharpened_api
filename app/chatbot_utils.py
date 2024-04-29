@@ -1,7 +1,7 @@
 import sys
 sys.path.append("utils")
-from local_creds import *
-from load_data import *
+from app.local_creds import *
+from app.load_data import *
 
 from langchain.prompts import PromptTemplate
 from json import dumps

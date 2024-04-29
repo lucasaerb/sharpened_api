@@ -4,7 +4,7 @@ import requests
 from langchain_openai import OpenAIEmbeddings
 import sys
 sys.path.append("utils")
-from local_creds import *
+from app.local_creds import *
 # negligible change in the code
 #To do: add logger
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)

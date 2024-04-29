@@ -1,8 +1,8 @@
 from fastapi import BackgroundTasks, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from chatbot_utils import *
-from pocket_saves import *
+from app.chatbot_utils import *
+from app.pocket_saves import *
 from json import dumps
 origins = [
     "http://localhost",
