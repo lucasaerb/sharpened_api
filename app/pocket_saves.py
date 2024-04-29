@@ -6,6 +6,8 @@ from langchain_openai import OpenAIEmbeddings
 from app.load_data import *
 from app.better_scraper import *
 import sys
+import concurrent.futures
+
 sys.path.append("utils")
 from app.local_creds import *
 #To do: add logger
@@ -86,21 +88,40 @@ def add_to_db_given_urls(url_list, user_id):
     print (f"{total_count} Pocket saves successfully loaded into database.")
     return {"text": f"Success: {total_count} Pocket saves loaded into database"}
 
+# def get_urls_from_pocket(access_token, user_id):
+#     result = []
+#     offset = 0
+#     total_count = 0
+#     while offset < 1000:
+#         saves = get_pocket_saves(access_token, offset)
+#         print("SAVES type: ", type(saves), "saves[list] type:", type(saves['list']))
+#         if saves is None or len(saves['list']) == 0:
+#             return result
+#         try:
+#             url_list = [item['given_url'] for item in saves['list'].values()]
+#             result.extend(url_list)
+#         except Exception as e:
+#             print("Error getting urls from pocket: ", e)
+#         offset += int(POCKET_REQUEST_COUNT)
+#     return result
+
 def get_urls_from_pocket(access_token, user_id):
     result = []
-    offset = 0
-    total_count = 0
-    while offset < 1000:
-        saves = get_pocket_saves(access_token, offset)
-        print("SAVES type: ", type(saves), "saves[list] type:", type(saves['list']))
-        if saves is None or len(saves['list']) == 0:
-            return result
-        try:
-            url_list = [item['given_url'] for item in saves['list'].values()]
-            result.extend(url_list)
-        except Exception as e:
-            print("Error getting urls from pocket: ", e)
-        offset += int(POCKET_REQUEST_COUNT)
+    offsets = range(0, 1000, int(POCKET_REQUEST_COUNT))
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future_to_url = {executor.submit(get_pocket_saves, access_token, offset): offset for offset in offsets}
+        for future in concurrent.futures.as_completed(future_to_url):
+            offset = future_to_url[future]
+            try:
+                saves = future.result()
+                print("SAVES type: ", type(saves), "saves[list] type:", type(saves['list']))
+                if saves is not None and len(saves['list']) > 0:
+                    url_list = [item['given_url'] for item in saves['list'].values()]
+                    result.extend(url_list)
+            except Exception as e:
+                print("Error getting urls from pocket at offset {}: {}".format(offset, e))
+
     return result
 
 def main():
