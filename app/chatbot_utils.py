@@ -65,7 +65,7 @@ def get_docs_from_db(user_id):
         print(e)
         return None, None
     # embedding = embedding_model.embed_query()
-    payload = dumps({"find": {"sort": {"$vector": embedding},"options": { "limit": 1000}, "filter": {"user_id" : user_id}} })
+    payload = dumps({"find": {"sort": {"$vector": embedding},"options": { "limit": 10000}, "filter": {"user_id" : user_id}} })
     # print(payload)
     # need to handle the case where there are no relevant docs below to return. NONE
     relevant_docs = requests.request("POST", request_url, headers=request_headers, data=payload).json()
