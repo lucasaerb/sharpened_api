@@ -70,17 +70,21 @@ def add_docs_to_db(docs, user_id):
         # response = requests.request("POST", request_url, headers=request_headers, data=dumps(to_insert))
         total += 1
     
+    # step = 10
+    # for i in range(0, len(documents), step):
+    #     try:
+    #         response = requests.request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
+    #         if response:
+    #             print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
+    #         else:
+    #             print("no response: ", response)
+    #     except Exception as e:
+    #         print("Error exception:",e)
+    #         continue
+
     step = 10
-    for i in range(0, len(documents), step):
-        try:
-            response = requests.request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
-            if response:
-                print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
-            else:
-                print("no response: ", response)
-        except Exception as e:
-            print("Error exception:",e)
-            continue
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(send_request, range(0, len(documents), step), [documents]*len(range(0, len(documents), step)), [step]*len(range(0, len(documents), step)))
 
     return total
 
@@ -96,10 +100,6 @@ def send_request(i, documents, step):
             print("no response: ", response)
     except Exception as e:
         print("Error exception:",e)
-
-step = 10
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    executor.map(send_request, range(0, len(documents), step), [documents]*len(range(0, len(documents), step)), [step]*len(range(0, len(documents), step)))
 
 
 
