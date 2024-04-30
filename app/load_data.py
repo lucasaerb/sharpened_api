@@ -56,20 +56,21 @@ def add_docs_to_db(docs, user_id):
     documents = []
     print("adding docs to datastax astra: ", len(docs))
     for doc in docs:
-        document_id = doc["url"]
-        document_title = doc["title"]
-        document_content = doc["content"]
-        text_to_embed = f"URL:{document_id} title:{document_title} content:{document_content}"
-        embedding = embed(text_to_embed)
-        current_time = datetime.datetime.now().isoformat()
-        json_data = {"timestamp": current_time}
-        to_insert = {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding }
-        documents.append(to_insert)
-        print("doc appended. total: ", total)
-        # to_insert = {"insertOne": {"document": {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding}}}
-        # response = requests.request("POST", request_url, headers=request_headers, data=dumps(to_insert))
-        total += 1
-    
+        if doc:
+            document_id = doc["url"]
+            document_title = doc["title"]
+            document_content = doc["content"]
+            text_to_embed = f"URL:{document_id} title:{document_title} content:{document_content}"
+            embedding = embed(text_to_embed)
+            current_time = datetime.datetime.now().isoformat()
+            json_data = {"timestamp": current_time}
+            to_insert = {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding }
+            documents.append(to_insert)
+            print("doc appended. total: ", total)
+            # to_insert = {"insertOne": {"document": {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding}}}
+            # response = requests.request("POST", request_url, headers=request_headers, data=dumps(to_insert))
+            total += 1
+        
     # step = 10
     # for i in range(0, len(documents), step):
     #     try:

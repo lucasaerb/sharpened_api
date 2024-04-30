@@ -100,7 +100,7 @@ def scrape_urls(urls):
 
     result = []
     for split in splits:
-        if len(split.page_content) > 100:
+        if (split and len(split.page_content) > 100):
             result.append({'content':split.page_content, 'url': split.metadata["source"], 'title': split.metadata["title"]})
         else:
             print("Could not extract content from: ", split.metadata["source"], "text too short.")
