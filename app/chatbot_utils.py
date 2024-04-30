@@ -68,13 +68,14 @@ def get_docs_from_db(user_id):
     payload = dumps({"find": {"sort": {"$vector": embedding},"options": { "limit": 10000}, "filter": {"user_id" : user_id}} })
     # print(payload)
     # need to handle the case where there are no relevant docs below to return. NONE
-    relevant_docs = requests.request("POST", request_url, headers=request_headers, data=payload).json()
-    relevant_docs = relevant_docs['data']['documents']
-    if len(relevant_docs) == 0:
-        return None, None
+    response = requests.request("POST", request_url, headers=request_headers, data=payload).json()
+    if (response and ('data' in response)):
+        relevant_docs = response['data']['documents']
+        if len(relevant_docs) == 0:
+            return None, None
     # docs_contents = [row['document_content'] for row in relevant_docs]
-    docs_titles = [row['document_title'] for row in relevant_docs]
-    docs_urls = [row['document_id'] for row in relevant_docs]
+        docs_titles = [row['document_title'] for row in relevant_docs]
+        docs_urls = [row['document_id'] for row in relevant_docs]
     # docs_similarities = [row['$similarity'] for row in relevant_docs]
     # print("\n\n\n similarities:", docs_similarities)
     # print("getting docs from db", docs_contents, docs_urls)
@@ -82,11 +83,11 @@ def get_docs_from_db(user_id):
     # docs_titles = list(set(docs_titles))
     # docs_urls = list(set(docs_urls)) // causes problems. Need to remove duplicates while preserving order
 
-    docs_titles = remove_duplicates_preserve_order(docs_titles)
-    docs_urls = remove_duplicates_preserve_order(docs_urls)
-    print("got docs from db", docs_titles, docs_urls)
-    return docs_titles, docs_urls
-    
+        docs_titles = remove_duplicates_preserve_order(docs_titles)
+        docs_urls = remove_duplicates_preserve_order(docs_urls)
+        print("got docs from db", docs_titles, docs_urls)
+        return docs_titles, docs_urls
+    return None, None
 # prompt that is sent to openai using the response from the vector database and the users original query
 prompt_boilerplate = "Answer the question posed in the user query section using the provided context. If you don't know the answer, just say that you don't know, don't try to make up an answer. Also remark on whether the provided context was useful in generating the answer and why. Include sources for any information you provide."
 user_query_boilerplate = "USER QUERY: {userQuery}"
