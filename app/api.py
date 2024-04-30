@@ -5,11 +5,7 @@ from app.chatbot_utils import *
 from app.pocket_saves import *
 from json import dumps
 origins = [
-    "http://localhost",
-    "http://localhost:3000",
-    "http://localhost:3000/saves",
-    "https://sharp-ten.vercel.app"
-    "https://sharp-ten.vercel.app/saves"
+"*"
 ]
 
 app = FastAPI()
