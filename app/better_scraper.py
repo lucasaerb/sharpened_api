@@ -42,7 +42,7 @@ from trafilatura import fetch_url, extract
 # need to add support for those
 
 def scrape_urls(urls):
-    print("Scraping urls...", urls) #URLS is presently a LIST of LISTS... I think. Need to check.
+    print("Scraping urls...", urls)
     extracted_content = []
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"}
@@ -87,7 +87,7 @@ def scrape_urls(urls):
 
 
     splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-            chunk_size=500, chunk_overlap=50
+            chunk_size=400, chunk_overlap=50
     )
 
     documents = splitter.create_documents(extracted_content, metadata_list)

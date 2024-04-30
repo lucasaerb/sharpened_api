@@ -52,7 +52,7 @@ def add_docs_to_db(docs, user_id):
     # docs should be a list of dictionaries with keys: url, title, content
     total = 0
     documents = []
-    print("adding docs to datastax astra: ", docs)
+    print("adding docs to datastax astra: ", len(docs))
     for doc in docs:
         document_id = doc["url"]
         document_title = doc["title"]
@@ -63,17 +63,19 @@ def add_docs_to_db(docs, user_id):
         json_data = {"timestamp": current_time}
         to_insert = {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding }
         documents.append(to_insert)
+        print("doc appended. total: ", total)
         # to_insert = {"insertOne": {"document": {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding}}}
         # response = requests.request("POST", request_url, headers=request_headers, data=dumps(to_insert))
         total += 1
     
-    step = 10
+    step = 15
     for i in range(0, len(documents), step):
         try:
             response = requests.request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
             print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
         except Exception as e:
             print("Error exception:",e)
+            
             continue
 
     return total
