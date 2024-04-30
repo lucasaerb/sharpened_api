@@ -8,6 +8,7 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "http://localhost:3000/saves",
+    "https://sharp-ten.vercel.app"
 ]
 
 app = FastAPI()
