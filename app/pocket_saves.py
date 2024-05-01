@@ -124,6 +124,26 @@ def get_urls_from_pocket(access_token, user_id):
 
     return result
 
+
+def get_saves_from_pocket(access_token):
+    result = []
+    offsets = range(0, 1000, int(POCKET_REQUEST_COUNT))
+
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future_to_url = {executor.submit(get_pocket_saves, access_token, offset): offset for offset in offsets}
+        for future in concurrent.futures.as_completed(future_to_url):
+            offset = future_to_url[future]
+            try:
+                saves = future.result()
+                print("SAVES type: ", type(saves), "saves[list] type:", type(saves['list']))
+                if saves is not None and len(saves['list']) > 0:
+                    saves_list = [{'url': item['resolved_url'], 'title': item['resolved_title']} for item in saves['list'].values()]
+                    result.extend(saves_list)
+            except Exception as e:
+                print("Error getting urls from pocket at offset {}: {}".format(offset, e))
+
+    return result
+
 def main():
     request_token = obtain_request_token()
     print('request_token:', request_token)

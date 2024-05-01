@@ -81,15 +81,15 @@ async def load_pocket_saves(token: AccessToken, background_tasks: BackgroundTask
     return dumps({"text": "Loading pocket saves into database."})
 
 @app.post("/api/get_pocket_saves")
-async def load_pocket_saves(token: AccessToken):
+async def getting_pocket_saves(token: AccessToken):
     if token.access_token is None:
-        return dumps({"text": "Error loading pocket saves. No access token provided."})
+        return dumps({"text": "Error getting pocket saves. No access token provided."})
     if token.user_id is None:
-        return dumps({"text": "Error loading pocket saves. No user id provided."})
-    urls_list = get_urls_from_pocket(token.access_token, token.user_id)
-    print("urls_list returned: ", urls_list)
+        return dumps({"text": "Error getting pocket saves. No user id provided."})
+    saves_list = get_saves_from_pocket(token.access_token)
+    print("saves_list returned: ", saves_list)
     # add_urls_to_db(urls_list, token.user_id)
-    return dumps({"text": "Retrieved urls from pocket.", "urls": urls_list})
+    return dumps({"text": "Retrieved saves from pocket.", "saves": saves_list})
 
 @app.post("/api/add_urls_to_db")
 async def add_urls(docs: DocList, background_tasks: BackgroundTasks):
