@@ -101,7 +101,7 @@ async def add_urls(docs: DocList, background_tasks: BackgroundTasks):
     if len(urls_list) > 10:
         return dumps({"text": "Error loading pocket saves. Too many urls provided. Please add up to 10."})
     add_to_db_given_urls(urls_list, docs.user_id)
-    return dumps({"text": "Loading urls into database.", "urls": urls_list})
+    return dumps({"text": "Success! Document loaded into vector database: ", "urls": urls_list})
 
 @app.post("/api/get_docs_from_db")
 async def get_docs(user: User):
