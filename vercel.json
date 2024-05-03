@@ -19,8 +19,8 @@
         }
       ],
       "functions": {
-        "app/*": {
-          "maxDuration": 50
+        "app/api.py": {
+          "maxDuration": 100
         }
       },
       "env": {
