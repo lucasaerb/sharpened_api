@@ -18,7 +18,12 @@
           }
         }
       ],
-    "env": {
-      "APP_MODULE": "app:api"
-    }
+      "functions": {
+        "app/*": {
+          "maxDuration": 50
+        }
+      },
+      "env": {
+        "APP_MODULE": "app:api"
+      }
   }
