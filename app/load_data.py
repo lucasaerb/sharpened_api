@@ -61,7 +61,9 @@ def add_docs_to_db(docs, user_id):
             document_title = doc["title"]
             document_content = doc["content"]
             text_to_embed = f"URL:{document_id} title:{document_title} content:{document_content}"
+            print("about to embed")
             embedding = embed(text_to_embed)
+            print("there must be an error here somewhere?")
             current_time = datetime.datetime.now().isoformat()
             json_data = {"timestamp": current_time}
             to_insert = {"user_id": user_id, "json_data": json_data, "document_id": document_id, "document_title": document_title, "document_content": document_content, "$vector": embedding }
@@ -84,6 +86,7 @@ def add_docs_to_db(docs, user_id):
     #         continue
 
     step = 10
+    print("or perhaps this threadPool is the issue?")
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(send_request, range(0, len(documents), step), [documents]*len(range(0, len(documents), step)), [step]*len(range(0, len(documents), step)))
 
