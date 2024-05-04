@@ -11,9 +11,6 @@
     "functions": {
       "app/api.py": {
         "maxDuration": 50 
-      },
-      "app/api/*.js": {
-        "maxDuration": 50
       }
     },
     "routes": [
