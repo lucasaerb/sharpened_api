@@ -1,7 +1,7 @@
 import datetime
 from json import load, dumps
 from requests import request
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai.embeddings import OpenAIEmbeddings
 from app.local_creds import *
 
 # negligible change in the code

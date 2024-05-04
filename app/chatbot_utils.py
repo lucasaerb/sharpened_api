@@ -2,9 +2,9 @@ from app.local_creds import *
 from app.load_data import *
 
 from langchain.prompts import PromptTemplate
-from json import dumps
 from requests import request
-from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_openai.chat_models import ChatOpenAI 
+from langchain_openai.embeddings import OpenAIEmbeddings
 
 request_url = f"https://{ASTRA_DB_ID}-{ASTRA_DB_REGION}.apps.astra.datastax.com/api/json/v1/{ASTRA_DB_NAMESPACE}/chat"
 request_headers = { 'x-cassandra-token': ASTRA_DB_APPLICATION_TOKEN,  'Content-Type': 'application/json'}

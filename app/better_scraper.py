@@ -1,6 +1,7 @@
 from json import loads
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from trafilatura import fetch_url, extract
+from trafilatura.downloads import fetch_url
+from trafilatura.core import extract
 
 def scrape_urls(urls):
     print("Scraping urls...", urls)
