@@ -5,15 +5,12 @@
     "functions": {
       "app/api.*": {
         "maxDuration": 100,
-        "runtime": "@vercel/python"
       },
       "api/**/*": {
         "maxDuration": 100,
-        "runtime": "@vercel/python"
       },
       "api/*": {
         "maxDuration": 100,
-        "runtime": "@vercel/python"
       }
     },
     "routes": [
