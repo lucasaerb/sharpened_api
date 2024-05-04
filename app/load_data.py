@@ -87,8 +87,17 @@ def add_docs_to_db(docs, user_id):
 
     step = 10
     print("or perhaps this threadPool is the issue?")
+    import concurrent.futures
+
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(send_request, range(0, len(documents), step), [documents]*len(range(0, len(documents), step)), [step]*len(range(0, len(documents), step)))
+        futures = []
+        for i in range(0, len(documents), step):
+            future = executor.submit(send_request, i, documents[i:i+step], step)
+            futures.append(future)
+        
+        for future in concurrent.futures.as_completed(futures):
+            result = future.result()
+            # Process the result if needed
 
     return total
 

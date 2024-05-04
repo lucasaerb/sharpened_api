@@ -82,6 +82,10 @@ def load_saves_into_db(access_token, user_id):
     return {"text": f"Success: {total_count} Pocket saves loaded into database"}
 
 def add_to_db_given_urls(url_list, user_id):
+    # INSERT CODE : If url is already in DB then don't add it again
+    # Need to check by URL if it is already in the database
+
+
     content = scrape_urls(url_list) #returns a list of dictionaries with keys: url, title, content
     total_count = add_docs_to_db(content, user_id)
     # print("url_list: ", url_list)
