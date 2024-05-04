@@ -10,7 +10,7 @@ embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
 
 request_url = f"https://{ASTRA_DB_ID}-{ASTRA_DB_REGION}.apps.astra.datastax.com/api/json/v1/{ASTRA_DB_NAMESPACE}/chat"
 request_headers = { 'x-cassandra-token': ASTRA_DB_APPLICATION_TOKEN,  'Content-Type': 'application/json'}
-
+ 
 def get_input_data():
     scraped_results_file = INPUT_DATA
     with open(scraped_results_file) as f:
