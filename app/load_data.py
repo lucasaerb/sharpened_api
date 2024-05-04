@@ -149,7 +149,7 @@ def add_urls_to_db(urls, user_id):
     try:
         step = 10
         for i in range(0, len(documents), step):
-            response = requests.request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
+            response = request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
             print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
     except Exception as e:
         print("Error exception:",e)
