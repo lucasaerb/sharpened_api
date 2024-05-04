@@ -1,7 +1,7 @@
 from app.local_creds import *
 from app.load_data import *
 
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from requests import request
 from langchain_openai.chat_models import ChatOpenAI 
 from langchain_openai.embeddings import OpenAIEmbeddings

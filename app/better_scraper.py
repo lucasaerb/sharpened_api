@@ -1,5 +1,5 @@
 from json import loads
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from trafilatura.downloads import fetch_url
 from trafilatura.core import extract
 
