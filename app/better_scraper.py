@@ -63,17 +63,18 @@ def scrape_urls(urls):
         # below code for trafilatura
 
         try:
-            downloaded = fetch_url(url)
-            response = extract(downloaded, url, with_metadata=True, output_format="json")
-            # print(response)
-            if response:
+            if url:
+                downloaded = fetch_url(url)
+                response = extract(downloaded, url, with_metadata=True, output_format="json")
                 # print(response)
-                response = loads(response)
-                extracted_content.append(response['raw_text'])
-                if response['title']:
-                    metadata_list.append({"source": url, "title": response['title']})
-                else:
-                    metadata_list.append({"source": url, "title": "None"})
+                if response:
+                    # print(response)
+                    response = loads(response)
+                    extracted_content.append(response['raw_text'])
+                    if response['title']:
+                        metadata_list.append({"source": url, "title": response['title']})
+                    else:
+                        metadata_list.append({"source": url, "title": "None"})
         except Exception as e:
             print("Could not extract content from: ", url, "Error: ", e)
             continue
