@@ -8,6 +8,14 @@
         "config": { "maxDuration": 100, "maxLambdaSize": "15mb", "runtime": "python3.11" }
       }
     ],
+    "functions": {
+      "app/api.py": {
+        "maxDuration": 50 
+      },
+      "app/api/*.js": {
+        "maxDuration": 50
+      }
+    },
     "routes": [
         {
           "src": "/(.*)",
@@ -22,4 +30,5 @@
       "env": {
         "APP_MODULE": "app:api"
       }
+
   }
