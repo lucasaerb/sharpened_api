@@ -1,11 +1,10 @@
 from app.local_creds import *
 from app.load_data import *
 
-from langchain.prompts import PromptTemplate
+# from langchain.prompts import PromptTemplate
 from json import dumps
-import requests
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
+from requests import request
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings, PromptTemplate
 
 request_url = f"https://{ASTRA_DB_ID}-{ASTRA_DB_REGION}.apps.astra.datastax.com/api/json/v1/{ASTRA_DB_NAMESPACE}/chat"
 request_headers = { 'x-cassandra-token': ASTRA_DB_APPLICATION_TOKEN,  'Content-Type': 'application/json'}
@@ -28,7 +27,7 @@ def get_similar_docs(query, user_id, number):
     payload = dumps({"find": {"sort": {"$vector": embedding},"options": {"includeSimilarity" : True, "limit": number}, "filter": {"user_id" : user_id}} })
     # print(payload)
     # need to handle the case where there are no relevant docs below to return. NONE
-    relevant_docs = requests.request("POST", request_url, headers=request_headers, data=payload).json()
+    relevant_docs = request("POST", request_url, headers=request_headers, data=payload).json()
     # print("\n\n\nrelevant docs:", relevant_docs['data'])
     relevant_docs = relevant_docs['data']['documents']
     if len(relevant_docs) == 0:
@@ -66,7 +65,7 @@ def get_docs_from_db(user_id):
     payload = dumps({"find": {"sort": {"$vector": embedding},"options": { "limit": 1000}, "filter": {"user_id" : user_id}} })
     # print(payload)
     # need to handle the case where there are no relevant docs below to return. NONE
-    response = requests.request("POST", request_url, headers=request_headers, data=payload).json()
+    response = request("POST", request_url, headers=request_headers, data=payload).json()
     if (response and ('data' in response)):
         relevant_docs = response['data']['documents']
         if len(relevant_docs) == 0:

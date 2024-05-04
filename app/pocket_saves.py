@@ -1,10 +1,9 @@
 from json import dumps
 from time import sleep
-import requests
+from requests import request
 from langchain_openai import OpenAIEmbeddings
 from app.load_data import *
 from app.better_scraper import *
-import sys
 import concurrent.futures
 
 from app.local_creds import *
@@ -20,7 +19,7 @@ def get_pocket_saves(pocket_access_token, offset):
     request_url = f"https://getpocket.com/v3/get"
     request_headers = { 'Content-Type': 'application/json', 'X-Accept': 'application/json'}
     request_data = {"consumer_key": POCKET_CONSUMER_KEY, "access_token": pocket_access_token, "count": int(POCKET_REQUEST_COUNT), "offset": offset, "detailType": "simple"}
-    response = requests.request("POST", request_url, headers=request_headers, data=dumps(request_data))
+    response = request("POST", request_url, headers=request_headers, data=dumps(request_data))
     try:
         result = response.json()
     except:
@@ -33,7 +32,7 @@ def obtain_request_token():
     request_url = f"https://getpocket.com/v3/oauth/request"
     request_headers = { 'Content-Type': 'application/json', 'X-Accept': 'application/json'}
     request_data = {"consumer_key": POCKET_CONSUMER_KEY, "redirect_uri": "https://sharpened.vercel.app/"}
-    response = requests.request("POST", request_url, headers=request_headers, data=dumps(request_data))
+    response = request("POST", request_url, headers=request_headers, data=dumps(request_data))
     try:
         request_token = response.json()
     except:
@@ -44,7 +43,7 @@ def obtain_access_token(request_token):
     request_url = f"https://getpocket.com/v3/oauth/authorize"
     request_headers = { 'Content-Type': 'application/json', 'X-Accept': 'application/json'}
     request_data = {"consumer_key": POCKET_CONSUMER_KEY, "code": request_token}
-    response = requests.request("POST", request_url, headers=request_headers, data=dumps(request_data))
+    response = request("POST", request_url, headers=request_headers, data=dumps(request_data))
     try:
         access_token = response.json()
     except:        

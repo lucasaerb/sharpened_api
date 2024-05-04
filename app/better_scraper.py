@@ -1,44 +1,6 @@
 from json import loads
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-# from bs4 import BeautifulSoup
-# from bs4.element import Comment
 from trafilatura import fetch_url, extract
-
-
-# def tag_visible(element):
-#     if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
-#         return False
-#     if isinstance(element, Comment):
-#         return False
-#     return True
-
-
-# def text_from_html(body):
-#     soup = BeautifulSoup(body, 'html.parser')
-
-#     # get text
-#     text = soup.get_text()
-#     title = soup.title.string if soup.title else "None"
-#     for script in soup(["script", "style"]):
-#         script.extract()    # rip it out
-#     # break into lines and remove leading and trailing space on each
-#     lines = (line.strip() for line in text.splitlines())
-#     # break multi-headlines into a line each
-#     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-#     # drop blank lines
-#     text = ''.join(chunk for chunk in chunks if chunk)
-
-
-#     return text, title
-
-
-# def remove_duplicates_preserve_order(seq):
-#     seen = set()
-#     seen_add = seen.add
-#     return [x for x in seq if not (x in seen or seen_add(x))]
-
-# currently only works with blogs and text does not extract reddit or twitter or other social media
-# need to add support for those
 
 def scrape_urls(urls):
     print("Scraping urls...", urls)
@@ -106,18 +68,3 @@ def scrape_urls(urls):
             print("Could not extract content from: ", split.metadata["source"], "text too short.")
     # returns a list of dictionaries with keys: content, url, title
     return result
-
-
-
-# def main():
-#     urls = ["https://www.wsj.com",  "https://docs.datastax.com/en/dse68-security/docs/secFAQ.html", "https://www.reddit.com/r/LangChain/comments/18wzh73/rag_demo_cheapest_way_to_host/?utm_source=pocket_list", "https://twitter.com/adcock_brett/status/1743987597301399852?utm_source=pocket_list", "https://jenni.ai/?utm_source=pocket_list", "https://abcnews.go.com/International/virgin-atlantic-makes-maiden-transatlantic-flight-100-green/story?id=105206806&utm_source=pocket_list", "https://www.databricks.com/resources/demos/tutorials/data-science-and-ai/lakehouse-ai-deploy-your-llm-chatbot?utm_source=pocket_list", "https://www.reddit.com/r/LangChain/comments/18wzh73/rag_demo_cheapest_way_to_host/?utm_source=pocket_list", "https://twitter.com/adcock_brett/status/1743987597301399852?utm_source=pocket_list", "https://jenni.ai/?utm_source=pocket_list", "https://abcnews.go.com/International/virgin-atlantic-makes-maiden-transatlantic-flight-100-green/story?id=105206806&utm_source=pocket_list", "https://www.databricks.com/resources/demos/tutorials/data-science-and-ai/lakehouse-ai-deploy-your-llm-chatbot?utm_source=pocket_list",  "https://www.wsj.com", ]
-#     write_to_file = scrape_urls(urls)
-
-#     # print(write_to_file)
-
-#     with open("scraped_results.json", "w") as f:
-#         f.write(dumps(write_to_file))
-
-
-# if __name__ == "__main__":
-#     main()
