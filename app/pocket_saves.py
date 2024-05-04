@@ -1,5 +1,4 @@
 from json import dumps
-import json
 from time import sleep
 import requests
 from langchain_openai import OpenAIEmbeddings
@@ -8,7 +7,6 @@ from app.better_scraper import *
 import sys
 import concurrent.futures
 
-sys.path.append("utils")
 from app.local_creds import *
 #To do: add logger
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)

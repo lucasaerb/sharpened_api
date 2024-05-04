@@ -1,5 +1,3 @@
-import sys
-sys.path.append("utils")
 from app.local_creds import *
 from app.load_data import *
 

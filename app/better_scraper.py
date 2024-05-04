@@ -1,8 +1,7 @@
-from json import loads, dumps
+from json import loads
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 # from bs4 import BeautifulSoup
 # from bs4.element import Comment
-import requests
 from trafilatura import fetch_url, extract
 
 

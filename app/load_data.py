@@ -2,10 +2,7 @@ import datetime
 from json import load, dumps
 import requests
 from langchain_openai import OpenAIEmbeddings
-import sys
-sys.path.append("utils")
 from app.local_creds import *
-import concurrent.futures
 
 # negligible change in the code
 #To do: add logger
