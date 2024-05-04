@@ -2,8 +2,8 @@ from fastapi.applications import FastAPI
 from fastapi.background import BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from app.chatbot_utils import *
-from app.pocket_saves import *
+from .chatbot_utils import *
+from .pocket_saves import *
 origins = [
 "*"
 ]

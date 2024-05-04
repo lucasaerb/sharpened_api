@@ -2,7 +2,7 @@ import datetime
 from json import load, dumps
 from requests import request
 from langchain_openai.embeddings import OpenAIEmbeddings
-from app.local_creds import *
+from .local_creds import *
 
 # negligible change in the code
 #To do: add logger

@@ -1,10 +1,10 @@
 from json import dumps
 from time import sleep
 from requests import request
-from app.load_data import *
-from app.better_scraper import *
+from .load_data import *
+from .better_scraper import *
 import concurrent.futures
-from app.local_creds import *
+from .local_creds import *
 
 
 
