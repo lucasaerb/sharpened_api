@@ -1,14 +1,12 @@
 from json import dumps
 from time import sleep
 from requests import request
-from langchain_openai import OpenAIEmbeddings
 from app.load_data import *
 from app.better_scraper import *
 import concurrent.futures
-
 from app.local_creds import *
-#To do: add logger
-embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+
+
 
 # request_url = f"https://{ASTRA_DB_ID}-{ASTRA_DB_REGION}.apps.astra.datastax.com/api/json/v1/{ASTRA_DB_NAMESPACE}/chat"
 # request_headers = { 'x-cassandra-token': ASTRA_DB_APPLICATION_TOKEN,  'Content-Type': 'application/json'}

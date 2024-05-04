@@ -101,10 +101,23 @@ def add_docs_to_db(docs, user_id):
 
 
 
+
 def send_request(i, documents, step):
     try:
         print(f'insertMany documents[{i}:{i+step}]')
+        updateMany = {
+            "updateMany": {
+                "filter": documents[x],
+                "update": documents[x],
+                "options": {
+                "upsert": True
+                }
+            }
+        }
+
+        print('updateMany: ', str(updateMany))
         response = request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
+        
         if response:
             print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
         else:
@@ -141,12 +154,3 @@ def add_urls_to_db(urls, user_id):
     except Exception as e:
         print("Error exception:",e)
     return total
-
-def main():
-    input_data_faq = get_input_data()
-    add_docs_to_db(input_data_faq, user_id="000")
-    
-
-
-if __name__ == "__main__":
-    main()
