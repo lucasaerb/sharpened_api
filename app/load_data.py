@@ -105,15 +105,15 @@ def add_docs_to_db(docs, user_id):
 def send_request(i, documents, step):
     try:
         print(f'insertMany documents[{i}:{i+step}]')
-        updateMany = {
-            "updateMany": {
-                "filter": documents[x],
-                "update": documents[x],
-                "options": {
-                "upsert": True
-                }
-            }
-        }
+        # updateMany = {
+        #     "updateMany": {
+        #         "filter": documents[x],
+        #         "update": documents[x],
+        #         "options": {
+        #         "upsert": True
+        #         }
+        #     }
+        # }
 
         print('updateMany: ', str(updateMany))
         response = request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
