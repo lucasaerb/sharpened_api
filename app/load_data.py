@@ -56,7 +56,7 @@ def add_docs_to_db(docs, user_id):
     documents = []
     print("adding docs to datastax astra: ", len(docs))
     for doc in docs:
-        if doc:
+        if doc and doc["content"]:
             document_id = doc["url"]
             document_title = doc["title"]
             document_content = doc["content"]

@@ -64,7 +64,7 @@ def scrape_urls(urls):
 
         try:
             downloaded = fetch_url(url)
-            response = extract(downloaded, with_metadata=True, output_format="json")
+            response = extract(downloaded, url, with_metadata=True, output_format="json")
             # print(response)
             if response:
                 # print(response)

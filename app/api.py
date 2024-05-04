@@ -50,7 +50,7 @@ async def fill_and_send_prompt(query: Query):
 async def vector_search(query: Query):
     if query.prompt is None or query.prompt == "":
         return dumps({"text": "No prompt provided"})
-    relevant_docs, urls = get_similar_docs(query.prompt, query.user_id, 10)
+    relevant_docs, urls = get_similar_docs(query.prompt, query.user_id, 5)
     if relevant_docs is None:
         return dumps({"text": "No relevant documents found for that query. Please be more specific."})
     return dumps({"docs": relevant_docs, "urls": urls})
