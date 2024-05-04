@@ -115,7 +115,7 @@ def send_request(i, documents, step):
         #     }
         # }
 
-        print('updateMany: ', str(updateMany))
+        # print('updateMany: ', str(updateMany))
         response = request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
         
         if response:
