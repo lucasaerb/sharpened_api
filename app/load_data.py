@@ -92,7 +92,7 @@ def add_docs_to_db(docs, user_id):
     with concurrent.futures.ThreadPoolExecutor() as executor:
         futures = []
         for i in range(0, len(documents), step):
-            future = executor.submit(send_request, i, documents[i:i+step], step)
+            future = executor.submit(send_request, i, documents, step)
             futures.append(future)
         
         for future in concurrent.futures.as_completed(futures):
@@ -106,6 +106,7 @@ def add_docs_to_db(docs, user_id):
 
 def send_request(i, documents, step):
     try:
+        print(f'insertMany documents[{i}:{i+step}]')
         response = requests.request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
         if response:
             print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
