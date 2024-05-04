@@ -3,3 +3,4 @@ fastapi
 langchain-openai
 pydantic
 trafilatura
+langchain-text-splitters
