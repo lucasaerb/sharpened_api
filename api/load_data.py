@@ -116,12 +116,25 @@ def send_request(i, documents, step):
         # }
 
         # print('updateMany: ', str(updateMany))
-        response = request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
+        for doc in documents[i:i+step]:
+            updateOne= {
+                "updateOne": {
+                    "filter": {"document_id": doc["document_id"], "user_id": doc["user_id"], "$vector": {"$exists": False} },
+                    "update": {"$set": doc},
+                    "options": {
+                        "upsert": True
+                    }
+                }
+            }
+            response = request("POST", request_url, headers=request_headers, data=dumps(updateOne))
+            if response:
+                print("Updated res status: ", str(response.status_code),  "\t Updated res:\n ", response.json())
+        # response = request("POST", request_url, headers=request_headers, data=dumps({"insertMany": {"documents": documents[i:i+step]}}))
         
-        if response:
-            print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
-        else:
-            print("no response: ", response)
+        # if response:
+        #     print("response status: ", str(response.status_code),  "\t Inserted Count: ", str(i))
+        # else:
+        #     print("no response: ", response)
     except Exception as e:
         print("Error exception:",e)
 
