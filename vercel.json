@@ -1,16 +1,25 @@
 {
     "version": 2,
     "buildCommand": "rm -rf .next && vc build && vc deploy --prebuilt",
-
+    "builds": [
+      {
+        "src": "/app/api.py",
+        "use": "@vercel/python" ,
+        "config": { "maxDuration": 100, "maxLambdaSize": "15mb", "runtime": "python3.11" }
+      }
+    ],
     "functions": {
       "app/api.*": {
         "maxDuration": 100,
+        "runtime": "python3.12"
       },
       "api/**/*": {
         "maxDuration": 100,
+        "runtime": "python3.12"
       },
       "api/*": {
         "maxDuration": 100,
+        "runtime": "python3.12"
       }
     },
     "routes": [
