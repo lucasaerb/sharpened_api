@@ -9,15 +9,7 @@
       }
     ],
     "functions": {
-      "api/index.*": {
-        "maxDuration": 100,
-        "runtime": "python3.12"
-      },
-      "api/**/*": {
-        "maxDuration": 100,
-        "runtime": "python3.12"
-      },
-      "api/*": {
+      "api/index.py": {
         "maxDuration": 100,
         "runtime": "python3.12"
       }
