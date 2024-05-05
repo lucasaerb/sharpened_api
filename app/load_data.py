@@ -154,3 +154,6 @@ def add_urls_to_db(urls, user_id):
     except Exception as e:
         print("Error exception:",e)
     return total
+
+
+
