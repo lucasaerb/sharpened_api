@@ -3,13 +3,13 @@
     "buildCommand": "rm -rf .next && vc build && vc deploy --prebuilt",
     "builds": [
       {
-        "src": "/app/api.py",
+        "src": "/api/index.py",
         "use": "@vercel/python" ,
         "config": { "maxDuration": 100, "maxLambdaSize": "15mb", "runtime": "python3.11" }
       }
     ],
     "functions": {
-      "app/api.*": {
+      "api/index.*": {
         "maxDuration": 100,
         "runtime": "python3.12"
       },
@@ -25,7 +25,7 @@
     "routes": [
         {
           "src": "/(.*)",
-          "dest": "app/api.py",
+          "dest": "api/index.py",
           "headers": {
             "Access-Control-Allow-Origin": "*",
             "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
