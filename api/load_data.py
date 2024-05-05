@@ -119,7 +119,7 @@ def send_request(i, documents, step):
         for doc in documents[i:i+step]:
             updateOne= {
                 "updateOne": {
-                    "filter": {"document_id": doc["document_id"], "user_id": doc["user_id"], "$vector": {"$exists": False} },
+                    "filter": {"document_id": doc["document_id"], "user_id": doc["user_id"], "document_content": doc["document_content"] },
                     "update": {"$set": doc},
                     "options": {
                         "upsert": True
