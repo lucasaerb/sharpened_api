@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "buildCommand": "rm -rf .next && vc build && vc deploy --prebuilt",
     "routes": [
         {
           "src": "/(.*)",
