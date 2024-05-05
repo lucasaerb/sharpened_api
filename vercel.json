@@ -1,12 +1,6 @@
 {
     "version": 2,
     "buildCommand": "rm -rf .next && vc build && vc deploy --prebuilt",
-    "functions": {
-      "api/index.py": {
-        "maxDuration": 100,
-        "runtime": "python3.12"
-      }
-    },
     "routes": [
         {
           "src": "/(.*)",
@@ -18,6 +12,11 @@
           }
         }
       ],
+      "functions": {
+        "api/*": {
+          "maxDuration": 100
+        }
+      },
       "env": {
         "APP_MODULE": "app:api"
       }

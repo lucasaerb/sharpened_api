@@ -9,14 +9,7 @@
   "engines": {
     "node": "18.x"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lucasaerb/sharpened_api.git"
-  },
   "author": "Lucas Erb",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/lucasaerb/sharpened_api/issues"
-  },
   "homepage": "https://github.com/lucasaerb/sharpened_api#readme"
 }
