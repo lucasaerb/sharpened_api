@@ -5,7 +5,10 @@ from pydantic import BaseModel
 from .chatbot_utils import *
 from .pocket_saves import *
 origins = [
-"*"
+"sharp-ten.vercel.app",
+"app.sharpened.co",
+"https://sharp-ten.vercel.app",
+"https://app.sharpened.co",
 ]
 
 
